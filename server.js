@@ -12,6 +12,7 @@ import jobRoutes from "./routes/jobRoutes.js";
 // Middlewares
 import errorHandlerMiddleware from "./middleware/error-handle.js";
 import notFoundMiddleware from "./middleware/not-found.js";
+import authenticateUser from "./middleware/auth.js";
 
 // env
 dotenv.config();
@@ -29,7 +30,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api/v1/auth", authRoutes);
-app.use("/api/v1/jobs", jobRoutes);
+app.use("/api/v1/jobs", authenticateUser, jobRoutes);
 
 app.use(notFoundMiddleware);
 app.use(errorHandlerMiddleware);
